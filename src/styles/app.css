@@ -1,0 +1,1862 @@
+/* ============================================================================
+   MOUNTAIN HILL CONSTRUCTION — SYSTEM STYLES
+   Every rule here traces to DESIGN.md. Square corners, no blur, brick for
+   action only, depth from tone and hard offsets.
+   ============================================================================ */
+
+/* --- RESET ---------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+/* --- TYPOGRAPHY ----------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--display-1);
+  line-height: 0.9;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--headline);
+  line-height: 1.08;
+  letter-spacing: var(--tracking-headline);
+}
+
+h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-xl);
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+}
+
+h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  line-height: 1.3;
+}
+
+p {
+  margin: 0 0 1em;
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--indigo-700);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  color: var(--brick-700);
+}
+
+/* Two-tone, because no single colour clears 3:1 against bone, indigo AND
+   brick — and a brick ring on a brick button measured 1.00:1. Zero blur on
+   the shadow, so this stays inside the No-Blur Rule. */
+:focus-visible {
+  outline: 3px solid var(--bone-50);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 8px var(--ink-900);
+}
+
+/* Surfaces already carrying the offset block keep it and add the ring. */
+a.figure:focus-visible,
+.gallery button:focus-visible {
+  box-shadow:
+    2px 2px 0 var(--indigo-700),
+    0 0 0 8px var(--ink-900);
+}
+
+::selection {
+  background: var(--indigo-700);
+  color: var(--bone-50);
+}
+
+/* The surfaces the browser draws for us still belong to the design system. */
+html {
+  scrollbar-color: var(--steel-400) var(--bone-200);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bone-200);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--steel-400);
+  border: 3px solid var(--bone-200);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--steel-500);
+}
+
+input,
+textarea {
+  caret-color: var(--indigo-700);
+}
+
+.lead {
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 60ch;
+}
+
+.label {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  z-index: 200;
+  padding: var(--space-3) var(--space-5);
+  background: var(--brick-600);
+  color: var(--action-text);
+  text-decoration: none;
+  transition: top var(--dur-base) var(--ease-standard);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+  color: var(--action-text);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- LAYOUT: COURSES ------------------------------------------------------ */
+
+.container {
+  width: min(100% - (var(--gutter) * 2), var(--container));
+  margin-inline: auto;
+}
+
+.container--wide {
+  width: min(100% - (var(--gutter) * 2), var(--container-wide));
+}
+
+.course {
+  padding-block: var(--section-y);
+}
+
+.course--sunken {
+  background: var(--surface-sunken);
+}
+
+.course--deep {
+  position: relative;
+  isolation: isolate;
+  background: var(--surface-deep);
+  color: var(--text-on-deep);
+  overflow: hidden;
+}
+
+.on-deep h2,
+.on-deep h3 {
+  color: var(--bone-50);
+}
+
+.on-deep p {
+  color: var(--text-on-deep-muted);
+}
+
+.course--deepest {
+  background: var(--surface-deepest);
+}
+
+/* One oversized mark, bled off the trailing edge. A full tiling pattern
+   competed with the display line and lost the page its first viewport. */
+.bond-watermark {
+  position: absolute;
+  z-index: -1;
+  right: clamp(-14rem, -8vw, -4rem);
+  top: 50%;
+  translate: 0 -50%;
+  width: clamp(26rem, 46vw, 46rem);
+  aspect-ratio: 1;
+  color: var(--bone-50);
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.bond-watermark > svg {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 860px) {
+  .bond-watermark {
+    right: -30%;
+    width: 30rem;
+    opacity: 0.05;
+  }
+}
+
+/* --- THE DATUM RULE (signature) ------------------------------------------ */
+/* A struck steel line broken by the section label — the logo's rule, reused. */
+
+.datum {
+  display: grid;
+  grid-template-columns: var(--space-6) auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.datum::before,
+.datum::after {
+  content: '';
+  height: 1px;
+  background: var(--rule);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease-strike);
+}
+
+.datum::after {
+  transition-delay: 90ms;
+}
+
+.datum.is-struck::before,
+.datum.is-struck::after {
+  transform: scaleX(1);
+}
+
+.datum > .label {
+  color: var(--steel-600);
+}
+
+.datum--blank {
+  grid-template-columns: 1fr;
+}
+
+.datum--blank::after {
+  display: none;
+}
+
+.on-deep .datum::before,
+.on-deep .datum::after {
+  background: var(--indigo-500);
+}
+
+.on-deep .datum > .label {
+  color: var(--indigo-300);
+}
+
+/* --- BUTTONS -------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: var(--space-4) var(--space-6);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-base) var(--ease-standard),
+    color var(--dur-base) var(--ease-standard),
+    border-color var(--dur-base) var(--ease-standard);
+}
+
+.btn--primary {
+  background: var(--action);
+  border-color: var(--action);
+  color: var(--action-text);
+}
+
+.btn--primary:hover {
+  background: var(--action-hover);
+  border-color: var(--action-hover);
+  color: var(--action-text);
+}
+
+.btn--secondary {
+  background: transparent;
+  border-color: var(--indigo-700);
+  color: var(--indigo-700);
+}
+
+.btn--secondary:hover {
+  background: var(--indigo-700);
+  color: var(--bone-50);
+}
+
+.on-deep .btn--secondary {
+  border-color: var(--bone-50);
+  color: var(--bone-50);
+}
+
+.on-deep .btn--secondary:hover {
+  background: var(--bone-50);
+  color: var(--indigo-800);
+}
+
+.on-deep a:not(.btn) {
+  color: var(--indigo-100);
+}
+
+.on-deep a:not(.btn):hover {
+  color: var(--bone-50);
+}
+
+.btn--ghost {
+  min-height: 0;
+  padding: var(--space-2) 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--steel-600);
+}
+
+.btn--ghost:hover {
+  color: var(--brick-700);
+  border-bottom-color: var(--brick-600);
+}
+
+.btn[disabled],
+.btn[aria-disabled='true'] {
+  background: var(--bone-400);
+  border-color: var(--bone-400);
+  color: var(--ink-400);
+  cursor: not-allowed;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* --- HEADER / NAV --------------------------------------------------------- */
+
+/* The header is a light plate: the mark sits on bone in its true artwork
+   colours, and the indigo bar below it is the edge the deep hero hangs from.
+   When the page scrolls, that bar is what separates the header from bone
+   content passing underneath. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bone-50);
+  border-bottom: var(--bar-weight) solid var(--indigo-700);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-height: var(--header-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--ink-900);
+  text-decoration: none;
+}
+
+.brand > svg {
+  flex: none;
+}
+
+.brand:hover {
+  color: var(--ink-900);
+}
+
+.brand__name {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.0625rem;
+  line-height: 0.94;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+.brand__lic {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-label);
+  font-size: var(--text-3xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--steel-500);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.nav__link {
+  position: relative;
+  padding-block: var(--space-2);
+  color: var(--ink-600);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.nav__link:hover {
+  color: var(--indigo-700);
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: var(--bar-weight);
+  background: var(--brick-600);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-base) var(--ease-strike);
+}
+
+.nav__link.is-current {
+  color: var(--indigo-700);
+}
+
+.nav__link.is-current::after {
+  transform: scaleX(1);
+}
+
+.nav__burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-900);
+  cursor: pointer;
+}
+
+.nav__burger-bars {
+  display: grid;
+  gap: 5px;
+  width: 24px;
+}
+
+.nav__burger-bars span {
+  display: block;
+  height: 3px;
+  background: currentColor;
+}
+
+@media (max-width: 860px) {
+  .nav__burger {
+    display: inline-flex;
+  }
+
+  .nav {
+    position: fixed;
+    inset: var(--header-h) 0 0 auto;
+    width: min(88vw, 360px);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-6) var(--space-5) var(--space-9);
+    background: var(--bone-50);
+    border-left: var(--bar-weight) solid var(--brick-600);
+    transform: translateX(100%);
+    /* A closed drawer must not keep its links in the tab order. */
+    visibility: hidden;
+    transition:
+      transform var(--dur-slow) var(--ease-strike),
+      visibility 0s linear var(--dur-slow);
+    overflow-y: auto;
+  }
+
+  .nav.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    transition:
+      transform var(--dur-slow) var(--ease-strike),
+      visibility 0s;
+  }
+
+  .nav__link {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-sm);
+  }
+
+  .nav__link::after {
+    bottom: -1px;
+    right: auto;
+    width: 40px;
+  }
+
+  .nav .btn {
+    margin-top: var(--space-5);
+  }
+}
+
+/* --- MOBILE CONTACT BAR ---------------------------------------------------- */
+/* The scene is a phone, outdoors, on the property. Calling is never more than
+   one thumb-reach away. */
+
+.contact-bar {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .contact-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 110;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: var(--bar-weight) solid var(--steel-600);
+  }
+
+  .contact-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    font-family: var(--font-label);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .contact-bar__call {
+    background: var(--indigo-800);
+    color: var(--bone-50);
+  }
+
+  .contact-bar__quote {
+    background: var(--brick-600);
+    color: var(--action-text);
+  }
+
+  body {
+    padding-bottom: 56px;
+  }
+}
+
+/* --- STRIP: the contact datum --------------------------------------------- */
+
+.strip {
+  background: var(--surface-deepest);
+  color: var(--text-on-deep);
+  border-top: var(--bar-weight) solid var(--steel-500);
+}
+
+.strip__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5) var(--space-7);
+  padding-block: var(--space-6);
+}
+
+.strip__item {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.strip__item .label {
+  color: var(--indigo-300);
+}
+
+.strip__item a,
+.strip__item span:last-child {
+  color: var(--bone-50);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.strip__item a:hover {
+  color: var(--brick-300);
+  text-decoration: underline;
+}
+
+/* --- FIGURES & THE OFFSET BLOCK ------------------------------------------- */
+
+.figure {
+  position: relative;
+  margin: 0;
+  background: var(--surface-raised);
+  box-shadow: var(--offset) var(--offset) 0 var(--indigo-700);
+  transition:
+    transform var(--dur-base) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-standard);
+}
+
+a.figure:hover,
+a.figure:focus-visible {
+  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0 var(--indigo-700);
+}
+
+.figure img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--bone-300);
+}
+
+.figure figcaption,
+.figure__caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-7);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: start;
+  gap: var(--space-7);
+}
+
+/* --- FEATURED PROJECT CAROUSEL ------------------------------------------- */
+
+.project-carousel {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.project-carousel__viewport {
+  overflow: hidden;
+  background: var(--indigo-900);
+  box-shadow: var(--offset) var(--offset) 0 var(--indigo-700);
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.project-carousel__viewport:active {
+  cursor: grabbing;
+}
+
+.project-carousel__track {
+  display: flex;
+  transition: transform var(--dur-slow) var(--ease-standard);
+  will-change: transform;
+}
+
+.project-carousel__track.is-dragging {
+  transition: none;
+}
+
+.project-carousel__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  margin: 0;
+  background: var(--surface-raised);
+}
+
+.project-carousel__slide img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--bone-300);
+}
+
+.project-carousel__slide figcaption {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-height: 104px;
+  padding: var(--space-4) var(--space-5);
+  border-top: var(--bar-weight) solid var(--steel-500);
+}
+
+.project-carousel__slide figcaption > span:first-child {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.project-carousel__slide .label {
+  color: var(--steel-500);
+}
+
+.project-carousel__slide strong {
+  color: var(--text-primary);
+  font-size: var(--text-xl);
+  line-height: 1.15;
+}
+
+.project-carousel__sequence {
+  color: var(--text-secondary);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+}
+
+.project-carousel__controls,
+.project-carousel__arrows,
+.project-carousel__dots {
+  display: flex;
+  align-items: center;
+}
+
+.project-carousel__controls {
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.project-carousel__arrows {
+  gap: var(--space-2);
+}
+
+.project-carousel__arrow {
+  display: grid;
+  width: 52px;
+  min-height: 52px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--indigo-700);
+  background: transparent;
+  color: var(--indigo-700);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-base) var(--ease-standard),
+    color var(--dur-base) var(--ease-standard);
+}
+
+.project-carousel__arrow:hover {
+  background: var(--indigo-700);
+  color: var(--bone-50);
+}
+
+.project-carousel__arrow:disabled {
+  border-color: var(--steel-200);
+  color: var(--steel-400);
+  cursor: not-allowed;
+}
+
+.project-carousel__arrow:disabled:hover {
+  background: transparent;
+  color: var(--steel-400);
+}
+
+.project-carousel__dots {
+  justify-content: end;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.project-carousel__dot {
+  width: clamp(22px, 4vw, 52px);
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.project-carousel__dot::before,
+.project-carousel__dot::after {
+  content: '';
+  position: absolute;
+  inset: 20px 0;
+}
+
+.project-carousel__dot::after {
+  background: var(--steel-200);
+  transition: background-color var(--dur-base) var(--ease-standard);
+}
+
+.project-carousel__dot::before {
+  z-index: 1;
+  background: var(--indigo-700);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.project-carousel__dot:hover::after {
+  background: var(--indigo-700);
+}
+
+.project-carousel__dot[aria-current='true']::before {
+  animation: carousel-progress 5200ms linear forwards;
+}
+
+.project-carousel.is-paused .project-carousel__dot[aria-current='true']::before {
+  animation: none;
+  transform: scaleX(1);
+}
+
+@keyframes carousel-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.project-carousel__arrow:focus-visible,
+.project-carousel__dot:focus-visible {
+  outline: 3px solid var(--ink-900);
+  outline-offset: 3px;
+}
+
+/* The documented course-collapse breakpoint. Without it, grid-3 left a 2+1
+   orphan under Featured Projects at exactly this width. */
+@media (max-width: 900px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* --- SERVICE COURSES ------------------------------------------------------ */
+/* Laid as courses, not as a grid of identical cards. */
+
+.courses {
+  border-top: 1px solid var(--border);
+}
+
+.courses__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-5) var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--dur-base) var(--ease-standard);
+}
+
+/* The bond bar on the leading edge — 6u of the mark's geometry, at rest in
+   steel and firing to brick on hover. */
+.courses__row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: var(--space-5);
+  bottom: var(--space-5);
+  width: var(--bar-weight);
+  background: var(--steel-300);
+  transition: background-color var(--dur-base) var(--ease-standard);
+}
+
+.courses__row:hover {
+  background: var(--bone-100);
+}
+
+.courses__row:hover::before {
+  background: var(--indigo-700);
+}
+
+.courses__row h3 {
+  margin: 0;
+}
+
+.courses__row p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+}
+
+@media (max-width: 760px) {
+  .courses__row {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-2);
+  }
+}
+
+/* --- CHIPS ---------------------------------------------------------------- */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  padding: var(--space-2) var(--space-3);
+  background: var(--indigo-100);
+  color: var(--indigo-800);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* --- TICK LISTS ----------------------------------------------------------- */
+
+.ticks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticks li {
+  position: relative;
+  padding: var(--space-3) 0 var(--space-3) var(--space-6);
+  border-bottom: 1px solid var(--border);
+}
+
+.ticks li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.45em;
+  width: 12px;
+  height: 3px;
+  background: var(--steel-500);
+}
+
+.on-deep .ticks li {
+  border-bottom-color: var(--indigo-600);
+}
+
+.on-deep .ticks li::before {
+  background: var(--indigo-300);
+}
+
+/* --- PANEL (the one primary block per page) -------------------------------- */
+
+.panel {
+  padding: var(--space-6);
+  background: var(--surface-raised);
+  border-left: var(--bar-weight) solid var(--brick-600);
+}
+
+.panel--quiet {
+  background: var(--bone-100);
+  border-left-color: var(--steel-500);
+}
+
+.panel h3 {
+  margin-bottom: var(--space-2);
+}
+
+.panel h3 + p {
+  margin-bottom: var(--space-5);
+}
+
+.panel dl {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.panel dt {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--steel-600);
+}
+
+.panel dd {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-base);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .panel {
+    padding: var(--space-5);
+  }
+}
+
+/* --- FORMS ---------------------------------------------------------------- */
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.field > label {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--steel-600);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base); /* 17px — never let iOS zoom on focus */
+  line-height: 1.5;
+  transition: border-color var(--dur-base) var(--ease-standard);
+}
+
+.field textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--indigo-700);
+  border-width: 2px;
+  padding: calc(var(--space-3) - 1px) calc(var(--space-4) - 1px);
+}
+
+.field:focus-within > label {
+  color: var(--indigo-700);
+}
+
+.field--error input,
+.field--error textarea {
+  border-color: var(--brick-600);
+  border-width: 2px;
+}
+
+.field__error {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brick-700);
+}
+
+.field__hint {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.form-note {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* --- FOOTER --------------------------------------------------------------- */
+
+.site-footer {
+  background: var(--surface-deepest);
+  color: var(--text-on-deep);
+  padding-block: var(--space-8) var(--space-6);
+}
+
+.site-footer h3 {
+  margin-bottom: var(--space-4);
+  color: var(--bone-50);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.site-footer p,
+.site-footer address {
+  color: var(--indigo-200);
+  font-style: normal;
+}
+
+.site-footer a {
+  color: var(--indigo-100);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.site-footer a:hover {
+  color: var(--bone-50);
+  text-decoration: underline;
+}
+
+.site-footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: var(--space-7);
+  padding-bottom: var(--space-7);
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--indigo-800);
+}
+
+.footer__bottom p {
+  margin: 0;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--indigo-300);
+}
+
+/* --- MOTION --------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .datum::before,
+  .datum::after {
+    transform: scaleX(1);
+  }
+}
+
+/* --- HERO ----------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--surface-deep);
+  color: var(--text-on-deep);
+  padding-block: clamp(3.5rem, 10vw, 8rem);
+}
+
+.hero__inner {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-6);
+}
+
+.hero__inner > * {
+  max-width: 100%;
+}
+
+.hero h1 {
+  color: var(--bone-50);
+  max-width: none;
+}
+
+.hero .label {
+  color: var(--indigo-300);
+}
+
+.hero__tagline {
+  max-width: 34ch;
+  margin: 0;
+  color: var(--bone-100);
+  font-size: clamp(var(--text-xl), 2.4vw, var(--text-2xl));
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* The datum rule, struck under the display line exactly as in the artwork. */
+.hero__rule {
+  height: 3px;
+  width: min(100%, 520px);
+  background: var(--steel-400);
+}
+
+.hero__creds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 60ch;
+}
+
+.hero__creds li {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--indigo-200);
+}
+
+.hero__creds li:first-child {
+  color: var(--bone-50);
+  padding-left: var(--space-3);
+  border-left: var(--bar-weight) solid var(--steel-400);
+}
+
+/* --- PAGE HEAD (inner routes) --------------------------------------------- */
+
+.page-head {
+  padding-block: clamp(2.5rem, 6vw, 5rem) var(--space-7);
+  background: var(--surface-deep);
+  color: var(--text-on-deep);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.page-head h1 {
+  color: var(--bone-50);
+  font-size: var(--display-2);
+}
+
+.page-head .lead {
+  margin-top: var(--space-5);
+  color: var(--indigo-100);
+}
+
+.page-head .label {
+  display: block;
+  margin-bottom: var(--space-4);
+  color: var(--indigo-300);
+}
+
+/* --- GALLERY -------------------------------------------------------------- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-5);
+}
+
+.gallery button {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  font: inherit;
+  color: inherit;
+  width: 100%;
+  transition:
+    transform var(--dur-base) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-standard);
+  box-shadow: var(--offset) var(--offset) 0 var(--indigo-700);
+  text-align: left;
+}
+
+.gallery button:hover,
+.gallery button:focus-visible {
+  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0 var(--indigo-700);
+}
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--bone-300);
+}
+
+.gallery__caption {
+  display: grid;
+  gap: var(--space-1);
+  min-height: 76px;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border);
+  background: var(--surface-raised);
+}
+
+.gallery__caption strong,
+.gallery__caption span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gallery__caption strong {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.gallery__caption span {
+  color: var(--text-secondary);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* --- LIGHTBOX ------------------------------------------------------------- */
+
+.lightbox {
+  width: min(96vw, 1100px);
+  max-width: none;
+  padding: 0;
+  border: 0;
+  background: var(--indigo-950);
+  color: var(--bone-50);
+}
+
+.lightbox::backdrop {
+  background: color-mix(in srgb, var(--indigo-950) 92%, transparent);
+}
+
+.lightbox img {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  background: var(--indigo-950);
+}
+
+.lightbox__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-top: var(--bar-weight) solid var(--steel-500);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.lightbox__close {
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--indigo-600);
+  background: transparent;
+  color: var(--bone-50);
+  font: inherit;
+  letter-spacing: var(--tracking-label);
+  cursor: pointer;
+}
+
+.lightbox__close:hover {
+  background: var(--brick-600);
+  border-color: var(--brick-600);
+}
+
+/* --- FOUNDATIONS (the design system reference page) ----------------------- */
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-6);
+}
+
+.ramp {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ramp__bar {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  height: 56px;
+  border: 1px solid var(--steel-200);
+}
+
+.ramp__step {
+  position: relative;
+}
+
+.ramp__step[data-brand='true']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  background: var(--bone-50);
+}
+
+.ramp__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-family: var(--font-label);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.spec {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--border);
+}
+
+@media (min-width: 900px) {
+  .spec {
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: var(--space-7);
+  }
+}
+
+.spec__meta {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.spec__meta strong {
+  color: var(--indigo-700);
+  font-weight: 600;
+}
+
+.spec__sample > * {
+  margin: 0;
+}
+
+.contrast-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.contrast-table th,
+.contrast-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.contrast-table th {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--steel-600);
+}
+
+.contrast-table td:last-child,
+.contrast-table th:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pass[data-grade='FAIL'] {
+  background: var(--brick-100);
+  color: var(--brick-800);
+}
+
+.pass {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  background: var(--indigo-100);
+  color: var(--indigo-800);
+  font-family: var(--font-label);
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mark-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-7);
+  padding: var(--space-6);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+}
+
+.mark-row figcaption {
+  margin-top: var(--space-3);
+  font-family: var(--font-label);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.stack--tight {
+  gap: var(--space-3);
+}
+
+.stack--loose {
+  gap: var(--space-7);
+}
+
+/* Display type shown as a specimen rather than as a second h1. */
+.specimen-display {
+  max-width: none;
+  color: var(--indigo-700);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--display-1);
+  line-height: 0.9;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+/* The burger becomes an X while the drawer is open. */
+.nav__burger-bars span {
+  transition:
+    transform var(--dur-base) var(--ease-standard),
+    opacity var(--dur-fast) var(--ease-standard);
+}
+
+.nav__burger.is-open .nav__burger-bars span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.nav__burger.is-open .nav__burger-bars span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__burger.is-open .nav__burger-bars span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* The burger sits above the drawer so it can close it. */
+@media (max-width: 860px) {
+  .nav__burger {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+/* A specimen shown on the deep ground it was made for. */
+.mark-row__deep {
+  padding: var(--space-4);
+  background: var(--indigo-900);
+}
+
+.mark-row__deep figcaption {
+  color: var(--indigo-200);
+}
+
+/* --- THE FILM HERO -------------------------------------------------------- */
+/* Two zones divided by a hard edge: a solid indigo plate carrying the type, and
+   an open field showing the work. The edge is the datum rule, running
+   vertically here for the first time. No gradient scrim, no blur.
+
+   The split is not an arbitrary ratio. It is the bond's own 19u arm over its
+   33u field — the same proportion the mark is built from, so the hero is
+   divided the way the logo is divided.
+
+   Because the plate is opaque, the footage never renders behind it. That lets
+   the encode be a native-height square crop of the source rather than the whole
+   frame scaled down, which is where the resolution in the open field comes
+   from. */
+
+/* The film hero drops the display a step. At full size the line outruns the
+   plate and spills into the open field; smaller, the footage does more of the
+   work and the composition breathes. */
+.hero--film h1 {
+  font-size: var(--display-film);
+}
+
+.hero--film {
+  --plate-width: calc(19 / 33 * 100%); /* the bond's arm over its field */
+  --wash-field: 0.06; /* the grade already darkens; do not double up */
+  /* Tint chosen by sweep, not by eye: 44% reads best as glass but drops the
+     credential row to 4.77:1, too thin for the outdoor-daylight scene
+     PRODUCT.md describes. 58% still reads as glass at 6.26:1. */
+  --plate-tint: 22%;
+  /* 48px hid the footage entirely; 16px is where the formwork reads as
+     structure while the plate still reads as frosted glass. Below ~10px it
+     stops looking like glass and starts looking like soft-focus video, and the
+     contrast margin narrows with it. */
+  --plate-blur: 16px;
+  padding-block: clamp(4.5rem, 12vw, 9rem);
+}
+
+/* The footage runs the full width again: the glass plate has to have something
+   behind it to refract, and a plate over dead ground is not glass. */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--indigo-950);
+}
+
+.hero__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* The video fades up over the poster it was cut from, so there is no pop and
+   no frozen first frame if autoplay is refused. */
+.hero__frame--video {
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-standard);
+}
+
+.hero__frame--video.is-playing {
+  opacity: 1;
+}
+
+/* The glass is transparent enough at 22% that the plate stopped reading as
+   indigo at all. This recolours the footage under the plate toward the brand
+   hue while keeping its luminance and detail, so the field is unmistakably
+   indigo without spending any transparency on it. Painted inside the media so
+   the plate's backdrop filter blurs the recoloured result, not the raw frame. */
+.hero--film .hero__media::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--plate-width);
+  z-index: 1;
+  background: var(--indigo-700);
+  mix-blend-mode: color;
+  pointer-events: none;
+}
+
+/* The open field: enough indigo to own the footage as brand, not enough to
+   hide the crew working in it. */
+.hero--film .hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--indigo-900);
+  opacity: var(--wash-field);
+}
+
+/* The type plate: indigo glass. The footage stays readable through it as
+   movement and mass rather than detail, and the struck datum on its trailing
+   edge is what keeps it reading as a plate rather than a fade. */
+.hero__plate {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: -1;
+  width: var(--plate-width);
+  background: color-mix(in srgb, var(--indigo-800) var(--plate-tint), transparent);
+  backdrop-filter: blur(var(--plate-blur)) saturate(1.15);
+  -webkit-backdrop-filter: blur(var(--plate-blur)) saturate(1.15);
+  border-right: var(--bar-weight) solid var(--steel-500);
+}
+
+/* Without backdrop-filter there is no glass, only a weak tint — so fall back to
+   the opaque plate rather than shipping unreadable type. */
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+  .hero__plate {
+    background: var(--indigo-800);
+  }
+}
+
+.hero--film .hero__tagline {
+  max-width: 34ch;
+}
+
+.hero--film .hero__creds {
+  max-width: 46ch;
+}
+
+@media (max-width: 1100px) {
+  .hero--film {
+    --plate-width: 64%;
+  }
+}
+
+/* Below the drawer breakpoint the split stops working: the plate covers the
+   field and the datum runs horizontally along its foot instead. */
+/* Below the drawer breakpoint a vertical split has no room: the glass covers
+   the whole field. A lighter blur, because this is a full-viewport backdrop
+   filter over playing video on the phones PRODUCT.md says this site is read on. */
+@media (max-width: 860px) {
+  .hero--film {
+    --plate-width: 100%;
+    /* Denser than desktop: the glass covers the whole field here and this is the
+       outdoor-daylight case. Lighter blur, because a full-viewport backdrop
+       filter over playing video is the expensive one. */
+    --plate-tint: 34%;
+    --plate-blur: 14px;
+  }
+
+  .hero__plate {
+    border-right: 0;
+  }
+}
+
+/* Reduced motion never mounts the video at all; this is belt and braces for a
+   preference that changes after load. */
+@media (prefers-reduced-motion: reduce) {
+  .project-carousel__track {
+    transition: none;
+  }
+
+  .project-carousel__dot[aria-current='true']::before {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .hero__frame--video {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-carousel__slide img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .project-carousel__slide figcaption {
+    min-height: 92px;
+    padding-inline: var(--space-4);
+  }
+
+  .project-carousel__slide strong {
+    font-size: var(--text-lg);
+  }
+
+  .project-carousel__controls {
+    align-items: start;
+  }
+
+  .project-carousel__dots {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(22px, 1fr));
+    max-width: 220px;
+  }
+
+  .project-carousel__dot {
+    width: 100%;
+  }
+}

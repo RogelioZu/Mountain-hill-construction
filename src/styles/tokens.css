@@ -1,0 +1,189 @@
+/* ============================================================================
+   MOUNTAIN HILL CONSTRUCTION — DESIGN TOKENS
+   ----------------------------------------------------------------------------
+   DIRECTION CONTRACT
+
+   THESIS         The logo is a masonry bond, not a mountain. This surface is
+                  built from that bond's real geometry (33u field, 6u bars, 1u
+                  gaps, 19u arms) instead of the rounded-card contractor
+                  template the category always ships.
+   OWN-WORLD      Bone limestone ground, structural indigo carrying the deep
+                  bands, fired brick reserved for action only. Zero radius
+                  everywhere. No blur anywhere. Depth from tonal layers and a
+                  hard 6px offset on the weave axis. Struck steel datum lines.
+                  Jost 800 caps for display, Barlow for all work.
+   STORY          A licensed contractor who builds for snow load and steep
+                  sites — verifiable, reachable, and clearly local.
+   FIRST VIEWPORT Indigo field, wordmark lockup, display line in Jost caps,
+                  datum rule, brick quote button above the fold on a phone.
+   FORM           Masonry bond pattern, derived from the brand asset itself.
+
+   Every color below is measured from assets/logo.jpg and assets/
+   logo_with_name.jpeg, then extended into perceptual ramps in OKLCH so the
+   steps are even to the eye rather than interpolated in sRGB.
+   ============================================================================ */
+
+:root {
+  /* --- BRAND SOURCE (measured from the logo artwork) --------------------- */
+  --brand-brick: #ab1d2e; /* the mark's red bars          oklch(.482 .175 21.5) */
+  --brand-indigo: #3d3894; /* the mark's blue bars         oklch(.403 .146 280) */
+  --brand-steel: #465d89; /* the struck rule behind mark  oklch(.479 .077 262.7) */
+  --brand-ink: #2c2a2b; /* the wordmark's ink */
+
+  /* --- FIRED BRICK — the action color ----------------------------------- */
+  --brick-50: #fff1f0;
+  --brick-100: #fde0de;
+  --brick-200: #f6c6c4;
+  --brick-300: #eaa6a4;
+  --brick-400: #d37171;
+  --brick-500: #be494d;
+  --brick-600: #ab1d2e; /* BRAND */
+  --brick-700: #8e031e;
+  --brick-800: #700115;
+  --brick-900: #55000e;
+  --brick-950: #380006;
+
+  /* --- STRUCTURAL INDIGO — the load-bearing color ------------------------ */
+  --indigo-50: #f4f5fd;
+  --indigo-100: #e6e9f9;
+  --indigo-200: #d1d5f0;
+  --indigo-300: #b6bae3;
+  --indigo-400: #9499d1;
+  --indigo-500: #7277bc;
+  --indigo-600: #5556a7;
+  --indigo-700: #3d3894; /* BRAND */
+  --indigo-800: #2e277c;
+  --indigo-900: #201562;
+  --indigo-950: #130449;
+
+  /* --- STRUCK STEEL — the datum line ------------------------------------ */
+  --steel-100: #e3e8f2;
+  --steel-200: #ccd5e4;
+  --steel-300: #afbbd2;
+  --steel-400: #778aad;
+  --steel-500: #465d89; /* BRAND */
+  --steel-600: #32476f;
+  --steel-700: #223458;
+  --steel-800: #152545;
+
+  /* --- BONE — warm mineral ground (limestone, not cream) ----------------- */
+  --bone-50: #fbfaf7;
+  --bone-100: #f7f4ef;
+  --bone-200: #eeebe6;
+  --bone-300: #e2dfdb;
+  --bone-400: #d2cfca;
+  --bone-500: #bdbbb6;
+  --bone-600: #a19e9a;
+
+  /* --- INK — indigo-tinted graphite, so text lives in the indigo world --- */
+  --ink-300: #8a8b93;
+  --ink-400: #6e6f78;
+  --ink-500: #55565f;
+  --ink-600: #3f4049;
+  --ink-700: #2d2e37;
+  --ink-800: #20212a;
+  --ink-900: #13141d;
+  --ink-950: #0a0a13;
+
+  /* --- SEMANTIC ROLES ---------------------------------------------------- */
+  --surface-page: var(--bone-50);
+  --surface-raised: var(--bone-50);
+  --surface-sunken: var(--bone-200);
+  --surface-deep: var(--indigo-700);
+  --surface-deeper: var(--indigo-800);
+  --surface-deepest: var(--indigo-900);
+
+  --text-primary: var(--ink-900);
+  --text-secondary: var(--ink-500);
+  --text-muted: var(--ink-400);
+  --text-on-deep: var(--bone-100);
+  --text-on-deep-muted: var(--indigo-200);
+
+  --action: var(--brick-600);
+  --action-hover: var(--brick-700);
+  --action-text: var(--bone-50);
+
+  --rule: var(--steel-500);
+  --rule-faint: var(--steel-200);
+  --border: var(--steel-200);
+  --border-strong: var(--indigo-700);
+
+  --focus-ring: var(--brick-600);
+
+  /* What the mark's indigo arm becomes in `knockout` — the footer's deep
+     ground. The header is bone, so the mark renders there in its true colours
+     and needs no knockout at all. */
+  --mark-secondary: var(--bone-50);
+
+  /* --- TYPEFACES --------------------------------------------------------- */
+  /* Jost is a Futura revival; the wordmark is Futura Extra Bold. Display only. */
+  --font-display: 'Jost Variable', Jost, Futura, 'Century Gothic', sans-serif;
+  --font-body: Barlow, 'Helvetica Neue', Arial, sans-serif;
+  --font-label: 'Barlow Semi Condensed', Barlow, 'Arial Narrow', sans-serif;
+
+  /* --- TYPE SCALE (base 17px — the scene is outdoors, on a phone) -------- */
+  --text-3xs: 0.625rem; /* the lockup's licence line only */
+  --text-2xs: 0.75rem;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.6875rem;
+  --text-3xl: 2.125rem;
+  --text-4xl: 2.625rem;
+
+  --display-1: clamp(3rem, 9vw, 6.5rem);
+  /* One step down, for a display line set over footage: at full size the line
+     outruns the type plate and spills into the open field. */
+  --display-film: clamp(2.75rem, 6.2vw, 5.25rem);
+  --display-2: clamp(2.5rem, 6vw, 4rem);
+  --headline: clamp(2rem, 4.5vw, 3rem);
+
+  --tracking-display: -0.02em;
+  --tracking-headline: -0.015em;
+  --tracking-label: 0.12em; /* the mark's 6:1 ratio, expressed in type */
+
+  /* --- SPACE (4px base; 8px course; 24px band) --------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --section-y: clamp(4rem, 9vw, 7.5rem);
+
+  /* --- THE BOND GEOMETRY (derived from the mark, not invented) ----------- */
+  --bond-bar: 6; /* bar thickness, in grid units */
+  --bond-gap: 1; /* gap between bars */
+  --bond-arm: 19; /* arm length */
+  --bond-field: 33; /* full field */
+  --bar-weight: 6px; /* the physical bar: leading edges, active markers */
+  --offset: 6px; /* the hard offset block, on the weave axis */
+
+  /* --- SHAPE — the mark has eight rectangles and zero curves ------------- */
+  --radius: 0;
+
+  /* --- MOTION ------------------------------------------------------------ */
+  --ease-strike: cubic-bezier(0.16, 1, 0.3, 1); /* exponential out — a snapped line */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 420ms;
+
+  /* --- LAYOUT ------------------------------------------------------------ */
+  --container: 1200px;
+  --container-wide: 1440px;
+  --gutter: 1.5rem;
+  --measure: 68ch;
+  --header-h: 72px;
+}
+
+@media (max-width: 860px) {
+  :root {
+    --gutter: 1.25rem;
+  }
+}

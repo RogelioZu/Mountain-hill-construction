@@ -1,0 +1,49 @@
+/* English-only site: self-host Latin subsets and discover them from HTML,
+   before the app bundle. Swap keeps text readable if a font request fails. */
+@font-face {
+  font-family: 'Jost Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource-variable/jost/files/jost-latin-wght-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/barlow-semi-condensed/files/barlow-semi-condensed-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/barlow/files/barlow-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/barlow/files/barlow-latin-500-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/barlow/files/barlow-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/barlow/files/barlow-latin-700-normal.woff2') format('woff2');
+}

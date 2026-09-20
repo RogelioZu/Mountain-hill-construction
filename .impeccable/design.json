@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-20T00:00:00.000Z",
+  "title": "Design System: Mountain Hill Construction",
+  "extensions": {
+    "colorMeta": {
+      "brick-600": {
+        "role": "secondary",
+        "displayName": "Fired Brick",
+        "canonical": "oklch(0.482 0.1753 21.5)",
+        "tonalRamp": [
+          "#380006",
+          "#55000e",
+          "#700115",
+          "#8e031e",
+          "#ab1d2e",
+          "#be494d",
+          "#d37171",
+          "#eaa6a4",
+          "#f6c6c4",
+          "#fde0de",
+          "#fff1f0"
+        ]
+      },
+      "indigo-700": {
+        "role": "primary",
+        "displayName": "Structural Indigo",
+        "canonical": "oklch(0.403 0.1462 280)",
+        "tonalRamp": [
+          "#130449",
+          "#201562",
+          "#2e277c",
+          "#3d3894",
+          "#5556a7",
+          "#7277bc",
+          "#9499d1",
+          "#b6bae3",
+          "#d1d5f0",
+          "#e6e9f9",
+          "#f4f5fd"
+        ]
+      },
+      "steel-500": {
+        "role": "tertiary",
+        "displayName": "Struck Steel",
+        "canonical": "oklch(0.479 0.0768 262.7)",
+        "tonalRamp": [
+          "#152545",
+          "#223458",
+          "#32476f",
+          "#465d89",
+          "#778aad",
+          "#afbbd2",
+          "#ccd5e4",
+          "#e3e8f2"
+        ]
+      },
+      "bone-50": {
+        "role": "neutral",
+        "displayName": "Bone",
+        "canonical": "oklch(0.985 0.0074 80.7)",
+        "tonalRamp": [
+          "#a19e9a",
+          "#bdbbb6",
+          "#d2cfca",
+          "#e2dfdb",
+          "#eeebe6",
+          "#f7f4ef",
+          "#fbfaf7"
+        ]
+      },
+      "ink-900": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(0.195 0.0175 280)",
+        "tonalRamp": [
+          "#0a0a13",
+          "#13141d",
+          "#20212a",
+          "#2d2e37",
+          "#3f4049",
+          "#55565f",
+          "#6e6f78",
+          "#8a8b93"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "h1 only, one per page, uppercase. Jost is a Futura revival, so the page's largest type is the logo's own type."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "h2 and section openers, sentence case."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "h3, service and card headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text. 17px for the outdoor-phone reading scene, held to 68ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Eyebrows, nav, buttons, credentials, figure captions."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "The licence line inside the brand lockup. One use only."
+      },
+      "display-film": {
+        "displayName": "Display over footage",
+        "purpose": "The h1 on the film hero, one step down from Display. At full size the line outruns the type plate and spills into the open field, and over moving footage the type no longer has to carry the viewport alone."
+      }
+    },
+    "shadows": [
+      {
+        "name": "offset-block",
+        "value": "6px 6px 0 #3d3894",
+        "purpose": "Raised interactive surfaces at rest. A solid, un-blurred offset along the weave's down-right axis \u2014 the same axis the mark's brick arm runs on."
+      },
+      {
+        "name": "offset-block-pressed",
+        "value": "2px 2px 0 #3d3894",
+        "purpose": "Hover and active. Paired with translate(4px, 4px), so the surface moves into the page and closes the gap rather than lifting."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 3px solid #fbfaf7; outline-offset: 2px; box-shadow: 0 0 0 8px #13141d",
+        "purpose": "Every focusable element. Two-tone, because no single colour clears 3:1 against bone, indigo and brick at once \u2014 a brick ring on a brick button measures 1.00:1. Zero blur, so it stays inside the No-Blur Rule."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-strike",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Exponential ease-out for the datum rule snapping across, and for the mobile drawer."
+      },
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Colour and border state transitions."
+      },
+      {
+        "name": "dur-base",
+        "value": "180ms",
+        "purpose": "Default state change."
+      },
+      {
+        "name": "dur-slow",
+        "value": "420ms",
+        "purpose": "The struck datum rule and the drawer slide."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "drawer",
+        "value": "860px"
+      },
+      {
+        "name": "course-collapse",
+        "value": "900px"
+      },
+      {
+        "name": "row-stack",
+        "value": "760px"
+      },
+      {
+        "name": "panel-tighten",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single action colour. One per viewport region; brick appears nowhere else.",
+      "html": "<button class=\"ds-btn-primary\">Get a Free Quote</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 16px 32px; background: var(--brick-600, #ab1d2e); border: 2px solid var(--brick-600, #ab1d2e); border-radius: 0; color: var(--bone-50, #fbfaf7); font-family: 'Barlow Semi Condensed', Barlow, sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background-color 180ms cubic-bezier(0.4,0,0.2,1), border-color 180ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-primary:hover { background: var(--brick-700, #8e031e); border-color: var(--brick-700, #8e031e); } .ds-btn-primary:focus-visible { outline: 3px solid var(--bone-50, #fbfaf7); outline-offset: 2px; box-shadow: 0 0 0 8px var(--ink-900, #13141d); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Indigo outline that floods on hover. The default for every non-primary action.",
+      "html": "<button class=\"ds-btn-secondary\">View Projects</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 16px 32px; background: transparent; border: 2px solid var(--indigo-700, #3d3894); border-radius: 0; color: var(--indigo-700, #3d3894); font-family: 'Barlow Semi Condensed', Barlow, sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background-color 180ms cubic-bezier(0.4,0,0.2,1), color 180ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-secondary:hover { background: var(--indigo-700, #3d3894); color: var(--bone-50, #fbfaf7); } .ds-btn-secondary:focus-visible { outline: 3px solid var(--bone-50, #fbfaf7); outline-offset: 2px; box-shadow: 0 0 0 8px var(--ink-900, #13141d); }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square, ruled in pale steel, 17px so iOS never zooms on focus. The label turns indigo when the field has focus.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-phone\">Phone</label><input id=\"ds-phone\" type=\"tel\" placeholder=\"(909) 648-8760\"></div>",
+      "css": ".ds-field { display: grid; gap: 8px; } .ds-field > label { font-family: 'Barlow Semi Condensed', Barlow, sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--steel-600, #32476f); transition: color 180ms; } .ds-field input { width: 100%; min-height: 48px; padding: 12px 16px; border: 1px solid var(--steel-200, #ccd5e4); border-radius: 0; background: #ffffff; color: var(--ink-900, #13141d); font-family: Barlow, sans-serif; font-size: 1.0625rem; line-height: 1.5; } .ds-field input:focus { border-color: var(--indigo-700, #3d3894); border-width: 2px; padding: 11px 15px; outline: 3px solid var(--bone-50, #fbfaf7); outline-offset: 2px; box-shadow: 0 0 0 8px var(--ink-900, #13141d); } .ds-field:focus-within > label { color: var(--indigo-700, #3d3894); }"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "A static taxonomy marker for service categories. Not a filter \u2014 there is no selected state.",
+      "html": "<span class=\"ds-chip\">ADU Construction</span>",
+      "css": ".ds-chip { display: inline-block; padding: 8px 12px; background: var(--indigo-100, #e6e9f9); color: var(--indigo-800, #2e277c); border-radius: 0; font-family: 'Barlow Semi Condensed', Barlow, sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Datum Rule",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The system's signature section opener: a struck steel line broken by the section label, mirroring the rule that runs behind the mark in the original artwork. The gap is what makes it read as the logo's rule rather than a generic hr.",
+      "html": "<div class=\"ds-datum\"><span>What we do</span></div>",
+      "css": ".ds-datum { display: grid; grid-template-columns: 32px auto 1fr; align-items: center; gap: 16px; } .ds-datum::before, .ds-datum::after { content: ''; height: 1px; background: var(--steel-500, #465d89); } .ds-datum > span { font-family: 'Barlow Semi Condensed', Barlow, sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--steel-600, #32476f); }"
+    },
+    {
+      "name": "Offset Block Figure",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Depth without a shadow. The solid 6px offset sits on the weave axis; on hover the surface moves into the page and closes the gap rather than lifting.",
+      "html": "<figure class=\"ds-figure\"><img src=\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='400' height='300' fill='%23e2dfdb'/></svg>\" alt=\"\"><figcaption>Summit A-Frame</figcaption></figure>",
+      "css": ".ds-figure { margin: 0; background: #ffffff; border-radius: 0; box-shadow: 6px 6px 0 var(--indigo-700, #3d3894); transition: transform 180ms cubic-bezier(0.4,0,0.2,1), box-shadow 180ms cubic-bezier(0.4,0,0.2,1); } .ds-figure:hover { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--indigo-700, #3d3894); } .ds-figure img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; } .ds-figure figcaption { padding: 16px 24px; border-top: 1px solid var(--steel-200, #ccd5e4); font-family: 'Barlow Semi Condensed', Barlow, sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-900, #13141d); }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "A bone plate closed by a 6px indigo bar, with label type and a 6px brick bar marking the current route. Light so the mark renders in its true artwork colours.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"is-current\">Home</a><a href=\"#\">About</a><a href=\"#\">Services</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 32px; padding: 16px 24px; background: var(--bone-50, #fbfaf7); border-bottom: 6px solid var(--indigo-700, #3d3894); } .ds-nav a { position: relative; padding: 8px 0; color: var(--ink-600, #3f4049); font-family: 'Barlow Semi Condensed', Barlow, sans-serif; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; } .ds-nav a:hover { color: var(--indigo-700, #3d3894); } .ds-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 6px; background: var(--brick-600, #ab1d2e); transform: scaleX(0); transform-origin: left center; transition: transform 180ms cubic-bezier(0.16,1,0.3,1); } .ds-nav a.is-current { color: var(--indigo-700, #3d3894); } .ds-nav a.is-current::after { transform: scaleX(1); }"
+    },
+    {
+      "name": "Brick Mark",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The logo as exact vector geometry: a 33-unit field, bars 6u thick, gaps 1u, arms 19u, four arms pinwheeled and rotated 45\u00b0. Rendered in its true colours on light grounds (the header); knockout only where the ground is deep indigo (the footer).",
+      "html": "<svg class=\"ds-mark\" viewBox=\"0 0 46.669 46.669\" width=\"96\" height=\"96\" role=\"img\" aria-label=\"Mountain Hill Construction\"><g transform=\"translate(6.835 6.835) rotate(45 16.5 16.5)\"><rect x=\"0\" y=\"0\" width=\"19\" height=\"6\" fill=\"#ab1d2e\"/><rect x=\"0\" y=\"7\" width=\"19\" height=\"6\" fill=\"#ab1d2e\"/><rect x=\"20\" y=\"0\" width=\"6\" height=\"19\" fill=\"#ab1d2e\"/><rect x=\"27\" y=\"0\" width=\"6\" height=\"19\" fill=\"#ab1d2e\"/><rect x=\"0\" y=\"14\" width=\"6\" height=\"19\" fill=\"#3d3894\"/><rect x=\"7\" y=\"14\" width=\"6\" height=\"19\" fill=\"#3d3894\"/><rect x=\"14\" y=\"20\" width=\"19\" height=\"6\" fill=\"#3d3894\"/><rect x=\"14\" y=\"27\" width=\"19\" height=\"6\" fill=\"#3d3894\"/></g></svg>",
+      "css": ".ds-mark { display: block; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Bond Pattern",
+    "overview": "The logo is not a picture of a mountain. It is a bond \u2014 the interlocking basket-weave pattern a mason uses when courses have to carry load in two directions at once. Measured off the asset, it resolves to an exact modular grid: a 33\u00d733 field, bars 6 units thick, gaps of 1 unit, arms 19 units long, four arms pinwheeled so that no two bars ever overlap. That ratio and that geometry are the system.\n\nThe result is a world of laid courses and struck lines. Sections stack like masonry courses on a consistent rhythm. A steel-blue datum line \u2014 the rule that runs behind the mark in the original artwork \u2014 is struck across the page to set each course, exactly as a mason snaps a line before laying the first brick. Corners are square everywhere, because the mark has no curve anywhere in it. Depth comes from tonal layering and hard offsets, never from a blur.\n\nIndigo is the structure: header, footer, and deep bands, roughly thirty percent of any page. Brick red is load-bearing in a different sense \u2014 it is the only color the visitor is ever invited to press. Against a warm bone ground the two brand colors stay separated by role rather than fighting for the same surface, which is what keeps a red-and-blue palette from reading as a flag.",
+    "keyCharacteristics": [
+      "Zero border-radius. Every corner in the system is 90\u00b0.",
+      "No blurred shadows. Depth is tonal layering plus hard 6px offsets on the weave axis.",
+      "Futura-lineage geometric caps (Jost) for display only; a warm signage grotesque (Barlow) for everything else.",
+      "A struck steel-blue datum line as the recurring structural device.",
+      "Brick red is an action color exclusively; it never decorates.",
+      "Pattern geometry is always the logo's real 6:1 bar-to-gap ratio, never an approximation."
+    ],
+    "rules": [
+      {
+        "name": "The 60/30/10 Bond",
+        "body": "Every page resolves to roughly 60% neutral ground, 30% structural indigo, 10% everything else. If indigo has dropped below a quarter of the page the design has drifted toward a generic light template; if it has passed half the page it has stopped being structure and become a mood.",
+        "section": "colors"
+      },
+      {
+        "name": "The Brick Is Never Decoration Rule",
+        "body": "Brick red appears only where the visitor can act: primary buttons, the tel: link, the active nav marker, a focused form field. It never fills a background, never tints an icon, never underlines a heading. Audit test: count the brick elements in a viewport. More than three and one of them is decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Bar Rule",
+        "body": "When indigo and brick appear in the same component they appear as separated bars, never as a gradient, a blend, or adjacent fills sharing an edge. The mark's arms never touch; neither do ours.",
+        "section": "colors"
+      },
+      {
+        "name": "The Wordmark Rule",
+        "body": "Jost is display-only. It sets h1 and the wordmark and nothing else \u2014 never a paragraph, never a button, never a nav item. Futura at text sizes has a tiny x-height and poor legibility at a glance, which is precisely the failure mode this site cannot afford.",
+        "section": "typography"
+      },
+      {
+        "name": "The Uppercase Pair Rule",
+        "body": "Only two things are uppercase: the display line and the label role. A h2 or a body string set in caps breaks the hierarchy, because caps is how this system signals \"structural,\" not \"important.\"",
+        "section": "typography"
+      },
+      {
+        "name": "The 6:1 Tracking Rule",
+        "body": "Label tracking (0.12em) and rule weights derive from the mark's 6:1 bar-to-gap ratio rather than from taste. Where the system needs a new spacing or stroke relationship, derive it from 6:1 before inventing one.",
+        "section": "typography"
+      },
+      {
+        "name": "The Datum Rule",
+        "body": "Every major section opens with a struck steel-blue rule running the full container width, broken by the section's eyebrow label exactly as the logo's rule is broken by the mark. This one device does the work that borders, cards, and shadows do in a generic template.",
+        "section": "layout"
+      },
+      {
+        "name": "The No-Blur Rule",
+        "body": "No box-shadow carries a blur radius and no surface glows. Masonry does not glow; if a surface needs separation, change its tone or strike a rule.",
+        "section": "elevation"
+      },
+      {
+        "name": "The True Mark Rule",
+        "body": "Wherever the layout can afford a light surface under the mark, use it and render the colour variant. Knockout is a concession to a deep ground, never a preference: the site's identity is strongest where the logo is simply itself.",
+        "section": "components"
+      },
+      {
+        "name": "The Graded Plate Rule",
+        "body": "Legibility over footage is bought in the encode, not in the overlay. Grade the clip so its highlights roll off (peak luminance ~200, not 255), then use the lightest wash that clears contrast. Raw footage measured 1.74:1 at its brightest pixel; the same wash over graded footage measures 8.49:1. Piling on opacity until raw highlights submit produces a dead grey field and throws away the reason for using film.",
+        "section": "components"
+      },
+      {
+        "name": "The Earned Playback Rule",
+        "body": "The poster paints immediately and is the complete experience on its own. Video mounts only when the visitor's situation can afford it: never under prefers-reduced-motion, never under Save-Data or a 2G effective connection, and at a smaller encode below 861px.",
+        "section": "components"
+      },
+      {
+        "name": "The One Glass Rule",
+        "body": "Amended 2026-09-20 at the owner's direction, which previously banned backdrop-filter outright. Blur is permitted in exactly one place: the hero's type plate is glass, so the footage behind it reads as movement and mass without competing with the type. It is a material with something real behind it, not decorative frosting on a flat ground. A second glass surface anywhere on the site breaks this rule.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Measured Tint Rule",
+        "body": "The glass tint is set by measurement, not by eye. Sweep it and take the most transparent value that still clears contrast against the brightest pixel under each text block, not the average. On this footage 44% reads best as glass but drops the credential row to 4.77:1; 58% still reads as glass at 6.09:1. Re-sweep whenever the footage changes.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do keep border-radius: 0 on every surface without exception.",
+      "Do reserve brick-600 for things the visitor can act on, and audit each viewport for the three-element ceiling.",
+      "Do open every major section with the struck steel datum rule and its broken label gap.",
+      "Do set h1 in Jost 800 uppercase and everything else in Barlow.",
+      "Do build depth with tonal layering and the 6px hard Offset Block on the down-right axis.",
+      "Do hold body copy to 68ch and set it at 17px, for the outdoor-phone reading scene.",
+      "Do derive new spacing and stroke relationships from the mark's 6:1 ratio.",
+      "Do render the logo from the vector BrickMark component, never from assets/logo.jpg, at any size under 400px.",
+      "Do keep the header on bone so the mark renders in its true artwork colours."
+    ],
+    "donts": [
+      "Don't use any box-shadow with a blur radius or a glow of any kind. backdrop-filter is permitted only on the hero's glass plate.",
+      "Don't let indigo and brick share an edge, blend, or appear in a gradient together.",
+      "Don't set Jost below 2rem or use it for body, nav, or button text.",
+      "Don't introduce a third brand hue. The palette's tertiary slot is filled by steel-500 and it is closed.",
+      "Don't use pure white #FFFFFF as a page ground; the ground is bone-50.",
+      "Don't set h2 or body copy in uppercase \u2014 caps is reserved for display and label roles.",
+      "Don't add a gradient or a rounded \"pill\" badge. Glass is allowed once, on the hero plate, and nowhere else.",
+      "Don't fabricate testimonials, star ratings, project counts, or years-in-business figures to fill a layout.",
+      "Don't put a gradient scrim under type on footage; this world divides tone with hard edges.",
+      "Don't autoplay video with sound, without a poster, or without a prefers-reduced-motion escape."
+    ]
+  }
+}
