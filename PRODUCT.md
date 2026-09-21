@@ -72,6 +72,7 @@ Confirmed business facts (must be preserved exactly):
 - Phone **(909) 648-8760**, email **Rafael@mountainhillconstruction.com**
 - Office **7563 Hwy 18, Big Bear City, CA 92314**
 - Hours **Daily 7:00 AM – 7:00 PM**
+- Instagram **https://www.instagram.com/mountain_hill_construction/** (footer "Follow" link)
 - Service area: Big Bear Lake, Big Bear City, Fawnskin, Lake Arrowhead, Running Springs
 
 Constraints:

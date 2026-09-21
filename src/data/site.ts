@@ -14,6 +14,7 @@ export const business = {
   emailHref: 'mailto:Rafael@mountainhillconstruction.com',
   address: '7563 Hwy 18, Big Bear City, CA 92314',
   hours: 'Daily 7:00 AM – 7:00 PM',
+  instagram: 'https://www.instagram.com/mountain_hill_construction/',
   serviceArea: [
     'Big Bear Lake',
     'Big Bear City',

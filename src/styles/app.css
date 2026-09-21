@@ -1099,6 +1099,19 @@ a.figure:focus-visible {
   text-decoration: underline;
 }
 
+.footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 48px;
+}
+
+.footer__social-link svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
 .site-footer ul {
   margin: 0;
   padding: 0;

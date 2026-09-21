@@ -97,12 +97,43 @@ function Footer({ inert }: { inert: boolean }) {
           <div>
             <h3>Contact</h3>
             <address>
-              <a href={business.emailHref}>{business.email}</a>
+              <a href={business.emailHref}>
+                {business.email.split('@')[0]}@<wbr />
+                {business.email.split('@')[1]}
+              </a>
               <br />
               <a href={business.phoneHref}>{business.phone}</a>
               <br />
               {business.address}
             </address>
+          </div>
+
+          <div>
+            <h3>Follow</h3>
+            <ul>
+              <li>
+                <a
+                  className="footer__social-link"
+                  href={business.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+                  Instagram
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
