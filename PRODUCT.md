@@ -82,10 +82,8 @@ Constraints:
   completed message to the visitor's mail client, which does deliver — but a form service
   (Formspree / Netlify Forms / Web3Forms) must still be chosen before launch. The previous
   site's `action="mailto:"` form failed silently and has been replaced.
-- **Project photography is hot-linked** from `mountainhillconstruction.com`. That is a
-  third-party origin which can break or throttle at any time — the chamber-of-commerce URLs
-  the legacy site used have already gone 404. Images must be downloaded into `public/work/`
-  and self-hosted before launch.
+- **Project photography is self-hosted** in `public/projects/`, with responsive WebP variants.
+  Original source photography remains in `assets/` for future selection and reprocessing.
 
 ## Brand Commitments
 
@@ -105,8 +103,7 @@ Constraints:
 
 ## Evidence on Hand
 
-- 12 real project photographs (currently hot-linked, see Constraints) plus 3 named featured
-  projects: Summit A-Frame, Fox Farm Kitchen, Lakeview Deck.
+- 15 selected project photographs are self-hosted, including 7 used in the home-page carousel.
 - Credentials claimed on the existing site: CSLB #1024711, General Liability & Workers'
   Compensation, EPA Lead-Safe Certified, BBB A+, Big Bear Chamber member.
 
@@ -119,9 +116,8 @@ confirmed and should be checked before launch:
   *clean jobsites, respectful crews*, *permits & inspections handled*. These are adjective
   claims and sit against Principle 2 below; either back them with something concrete or cut
   them.
-- The three featured project titles (Summit A-Frame, Fox Farm Kitchen, Lakeview Deck). The
-  chamber-of-commerce photo URLs the legacy site paired with them now return 404, so the
-  photographs currently shown are stand-ins from the gallery and the pairings are unverified.
+- The three legacy project titles (Summit A-Frame, Fox Farm Kitchen, Lakeview Deck) remain
+  unverified and are kept only in `legacy/`; the live site uses descriptive photo labels.
 
 **Absences that must not be fabricated:** there are no testimonials, no client names, no
 pricing, no project counts, no years-in-business figure, and no completion-time claims. Do

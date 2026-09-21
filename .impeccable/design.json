@@ -109,10 +109,6 @@
       "meta": {
         "displayName": "Meta",
         "purpose": "The licence line inside the brand lockup. One use only."
-      },
-      "display-film": {
-        "displayName": "Display over footage",
-        "purpose": "The h1 on the film hero, one step down from Display. At full size the line outruns the type plate and spills into the open field, and over moving footage the type no longer has to carry the viewport alone."
       }
     },
     "shadows": [
@@ -288,32 +284,12 @@
       },
       {
         "name": "The No-Blur Rule",
-        "body": "No box-shadow carries a blur radius and no surface glows. Masonry does not glow; if a surface needs separation, change its tone or strike a rule.",
+        "body": "filter: blur(), backdrop-filter, and any box-shadow with a non-zero blur radius are outside this system. Masonry does not glow. If a surface needs separation, change its tone or strike a rule.",
         "section": "elevation"
       },
       {
         "name": "The True Mark Rule",
         "body": "Wherever the layout can afford a light surface under the mark, use it and render the colour variant. Knockout is a concession to a deep ground, never a preference: the site's identity is strongest where the logo is simply itself.",
-        "section": "components"
-      },
-      {
-        "name": "The Graded Plate Rule",
-        "body": "Legibility over footage is bought in the encode, not in the overlay. Grade the clip so its highlights roll off (peak luminance ~200, not 255), then use the lightest wash that clears contrast. Raw footage measured 1.74:1 at its brightest pixel; the same wash over graded footage measures 8.49:1. Piling on opacity until raw highlights submit produces a dead grey field and throws away the reason for using film.",
-        "section": "components"
-      },
-      {
-        "name": "The Earned Playback Rule",
-        "body": "The poster paints immediately and is the complete experience on its own. Video mounts only when the visitor's situation can afford it: never under prefers-reduced-motion, never under Save-Data or a 2G effective connection, and at a smaller encode below 861px.",
-        "section": "components"
-      },
-      {
-        "name": "The One Glass Rule",
-        "body": "Amended 2026-09-20 at the owner's direction, which previously banned backdrop-filter outright. Blur is permitted in exactly one place: the hero's type plate is glass, so the footage behind it reads as movement and mass without competing with the type. It is a material with something real behind it, not decorative frosting on a flat ground. A second glass surface anywhere on the site breaks this rule.",
-        "section": "elevation"
-      },
-      {
-        "name": "The Measured Tint Rule",
-        "body": "The glass tint is set by measurement, not by eye. Sweep it and take the most transparent value that still clears contrast against the brightest pixel under each text block, not the average. On this footage 44% reads best as glass but drops the credential row to 4.77:1; 58% still reads as glass at 6.09:1. Re-sweep whenever the footage changes.",
         "section": "components"
       }
     ],
@@ -329,16 +305,14 @@
       "Do keep the header on bone so the mark renders in its true artwork colours."
     ],
     "donts": [
-      "Don't use any box-shadow with a blur radius or a glow of any kind. backdrop-filter is permitted only on the hero's glass plate.",
+      "Don't use any box-shadow with a blur radius, backdrop-filter, or a glow of any kind.",
       "Don't let indigo and brick share an edge, blend, or appear in a gradient together.",
       "Don't set Jost below 2rem or use it for body, nav, or button text.",
       "Don't introduce a third brand hue. The palette's tertiary slot is filled by steel-500 and it is closed.",
       "Don't use pure white #FFFFFF as a page ground; the ground is bone-50.",
       "Don't set h2 or body copy in uppercase \u2014 caps is reserved for display and label roles.",
-      "Don't add a gradient or a rounded \"pill\" badge. Glass is allowed once, on the hero plate, and nowhere else.",
-      "Don't fabricate testimonials, star ratings, project counts, or years-in-business figures to fill a layout.",
-      "Don't put a gradient scrim under type on footage; this world divides tone with hard edges.",
-      "Don't autoplay video with sound, without a poster, or without a prefers-reduced-motion escape."
+      "Don't add a gradient, a glassmorphic panel, or a rounded \"pill\" badge; all three are outside this world.",
+      "Don't fabricate testimonials, star ratings, project counts, or years-in-business figures to fill a layout."
     ]
   }
 }

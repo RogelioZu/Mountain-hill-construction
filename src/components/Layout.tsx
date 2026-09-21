@@ -91,9 +91,6 @@ function Footer({ inert }: { inert: boolean }) {
               <li>
                 <Link to="/projects">Our Projects</Link>
               </li>
-              <li>
-                <Link to="/foundations">Design System</Link>
-              </li>
             </ul>
           </div>
 

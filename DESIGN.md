@@ -30,12 +30,6 @@ typography:
     fontWeight: 800
     lineHeight: 0.9
     letterSpacing: "-0.02em"
-  display-film:
-    fontFamily: "'Jost Variable', Jost, Futura, 'Century Gothic', sans-serif"
-    fontSize: "clamp(2.75rem, 6.2vw, 5.25rem)"
-    fontWeight: 800
-    lineHeight: 0.9
-    letterSpacing: "-0.02em"
   headline:
     fontFamily: "Barlow, 'Helvetica Neue', Arial, sans-serif"
     fontSize: "clamp(2rem, 4.5vw, 3rem)"
@@ -163,8 +157,8 @@ held in reserve for action.
 
 - **Fired Brick** (`brick-600`): the mark's red bars, and the single action color. Primary
   buttons, the phone number, and the active nav marker. Nothing else. 6.80:1 on bone, and
-  6.83:1 for `bone-50` knockout text on it. `/foundations` computes these live from the
-  tokens; that table is the authority if this line ever drifts.
+  6.83:1 for `bone-50` knockout text on it. These documented values and the source tokens
+  are the internal authority; recalculate them together if either color changes.
 - **Kiln Brick** (`brick-700`): the pressed and hovered state of every brick surface.
 
 ### Tertiary
@@ -226,10 +220,6 @@ name, legibility for the work.
 - **Display** (Jost 800, `clamp(3rem, 9vw, 6.5rem)`, line-height 0.9, tracking -0.02em,
   uppercase): `h1` only, one per page. Set in uppercase because the wordmark is uppercase
   and Futura's lowercase would break the lockup's voice.
-- **Display over footage** (Jost 800, `clamp(2.75rem, 6.2vw, 5.25rem)`, uppercase): the
-  `h1` when it sits on the film hero. One step down from Display, because at full size the
-  line outruns the type plate and spills into the open field, and because over moving
-  footage the type no longer has to carry the viewport alone.
 - **Headline** (Barlow 700, `clamp(2rem, 4.5vw, 3rem)`, line-height 1.08, tracking
   -0.015em): `h2`, section openers. Sentence case.
 - **Title** (Barlow 600, 1.375rem, line-height 1.25): `h3`, card and service headings.
@@ -313,16 +303,9 @@ It reads as a physical block sitting proud of the page rather than as a floating
 
 ### Named Rules
 
-**The No-Blur Rule.** No `box-shadow` carries a blur radius, and no surface glows. Masonry
-does not glow; if a surface needs separation, change its tone or strike a rule.
-
-**The One Glass Rule.** Amended 2026-09-20 at the owner's direction, which previously
-banned `backdrop-filter` outright. Blur is now permitted in exactly one place and for one
-reason: the hero's type plate is glass, so the footage behind it reads as movement and mass
-without competing with the type. It is a material with something real behind it, not a
-decorative frosting applied to a flat ground — which is the distinction the old blanket ban
-was protecting. A second glass surface anywhere on the site breaks this rule; so does glass
-over anything that is not moving imagery.
+**The No-Blur Rule.** `filter: blur()`, `backdrop-filter`, and any `box-shadow` with a
+non-zero blur radius are outside this system. Masonry does not glow. If a surface needs
+separation, change its tone or strike a rule.
 
 ## Shapes
 
@@ -402,79 +385,6 @@ colored gap struck through it, offset 32px from the left container edge. It open
 major section and is the system's most recognizable device. The gap is what makes it read
 as the logo's broken rule rather than as a generic `<hr>`.
 
-### The Film Hero (signature component)
-
-The home hero's ground is an aerial timelapse of a foundation being formed on a steep
-mountain site. It is the one claim the site cannot make in words — a real crew, at real
-altitude — and the formwork's timber grid rhymes with the bond the system is built from.
-
-The field is divided into two zones by a hard edge, never a gradient:
-
-- **The type plate** (left): `indigo-800` glass — 22% tint over a 16px backdrop blur at
-  desktop, 34% over 14px on the phone — carrying the display line, tagline, credentials and
-  both actions. At 22% the tint alone no longer makes the plate read as indigo, so the
-  footage beneath it is recoloured to `indigo-700` with `mix-blend-mode: color`, which takes
-  the brand hue while keeping the footage's own luminance and detail. Brand identity there
-  costs no transparency. Its width is the bond's own proportion, the 19u arm over the 33u field
-  (`calc(19 / 33 * 100%)`), so the hero is divided the way the mark is divided rather than
-  on a ratio picked by eye. Its trailing edge is a 6px `steel-500` bar: the datum rule,
-  running vertically here, which is the only place in the system it does. That hard edge is
-  what keeps the glass reading as a plate instead of a fade.
-- **The open field** (right): the footage under `indigo-900` at 0.16 — enough to own it as
-  brand, light enough that the crew and the formwork read clearly, because a visitor who
-  cannot see the work gets nothing from the footage being there at all.
-
-Under 860px a vertical split has no room: the glass covers the whole field, denser and less
-blurred, because that is both the outdoor-daylight case and the expensive one to composite.
-
-**The Measured Tint Rule.** The glass tint is set by measurement, not by eye. Sweep it, and
-take the most transparent value that still clears contrast against the *brightest* pixel
-under each text block, not the average. Re-sweep whenever the footage changes — the right
-tint is a property of the clip, not a constant.
-
-**Blur is a legibility lever and a visibility lever at once, pulling opposite ways.** More
-blur averages the bright pixels and raises worst-case contrast; less blur shows the footage.
-Measured on the graded clip at 22% tint, the credential row runs 5.69:1 at 48px down to
-4.86:1 at 6px — so the whole usable range clears AA, and the choice is compositional, not
-mechanical. 48px hides the footage completely; 16px is where the formwork reads as structure
-while the plate still reads as frosted glass; below about 10px it stops looking like glass
-and starts looking like soft-focus video.
-
-**The order the levers actually work in.** Learned the hard way going from 58% to 22% tint.
-At 22% over the then-current grade the credential row measured 3.47:1, a clear fail. Blur
-was tried first and is the weakest lever: it averages the bright pixels but cannot move the
-mean, and even 120px only reached 4.22:1 — still failing, at a radius too expensive to
-composite. What worked was the encode: a harder highlight roll-off (peak luma 255 → 152)
-took the same 22% tint to 6.00:1. So when glass has to get more transparent, grade the clip
-down first, raise blur second, and touch the tint last. The cost is a darker open field, so
-drop `--wash-field` when the grade takes over its job.
-
-**The cost of glass, recorded so it is not rediscovered.** Glass requires the footage to run
-full-bleed behind the plate. An opaque plate does not, which allows a native-height square
-crop of the source rather than the whole frame scaled across the viewport — worth 2.36× the
-bits per pixel in the open field. Glass was chosen over that sharpness deliberately. If the
-open field ever needs to be sharper than the plate needs to be transparent, that is the
-trade to revisit.
-
-**The Graded Footage Rule.** Grade the clip in the encode rather than veiling it in CSS.
-This was first learned the hard way: under the earlier semi-transparent plate, raw footage
-measured 1.74:1 at its brightest pixel under the display line, and a highlight roll-off in
-the encode took the same wash to 8.49:1. The plate is opaque now, so legibility no longer
-depends on the grade — but the grade stays, gentler, because it keeps the open field from
-blowing out and keeps it inside the indigo world. Piling on opacity until raw highlights
-submit produces a dead grey field and throws away the reason for using film.
-
-**The Earned Playback Rule.** The poster paints immediately and is the complete experience
-on its own. The video mounts only when the visitor's situation can afford it: never under
-`prefers-reduced-motion`, never under Save-Data or a 2G/3G effective connection, and at a
-smaller encode below 861px. PRODUCT.md's operating context is explicit that visitors stand
-on properties outdoors on mountain-grade cell service; a 1.9 MB autoplay is a bad trade for
-them. Video is always muted, looping, `playsInline`, and cross-faded into a seamless loop
-so there is no visible cut. Playback starts after the initial page load; `preload="metadata"`
-is only a browser hint, and playback itself still downloads the film. A visible, keyboard-
-reachable Pause/Play control freezes and resumes the current frame. Changing the motion
-or data-saving preference removes the video and restores the poster immediately.
-
 ### The Brick Mark (signature component)
 
 The logo reproduced as exact vector geometry rather than as the source JPEG: a 33×33 field
@@ -504,19 +414,15 @@ site's identity is strongest where the logo is simply itself.
 - **Do** hold body copy to 68ch and set it at 17px, for the outdoor-phone reading scene.
 - **Do** derive new spacing and stroke relationships from the mark's 6:1 ratio.
 - **Do** render the logo from the vector `BrickMark` component, never from `assets/logo.jpg`, at any size under 400px.
-- **Do** grade footage so its highlights roll off before relying on a wash for legibility, and measure the result against the brightest pixel rather than the average.
-- **Do** ship a poster that stands on its own, and treat autoplay as a privilege the connection has to earn.
 
 ### Don't:
 
-- **Don't** use any `box-shadow` with a blur radius, or a glow of any kind. `backdrop-filter` is permitted only on the hero's glass plate — see The One Glass Rule.
+- **Don't** use any `box-shadow` with a blur radius, `backdrop-filter`, or a glow of any kind.
 - **Don't** let indigo and brick share an edge, blend, or appear in a gradient together.
 - **Don't** set Jost below 2rem or use it for body, nav, or button text — the brand lockup's wordmark at 17px is the single exception. The one exception is
   the brand lockup's name (17px), which is the wordmark rather than running type.
 - **Don't** introduce a third brand hue. The palette's tertiary slot is filled by `steel-500` and it is closed.
 - **Don't** use pure white `#FFFFFF` as a page ground; the ground is `bone-50`.
 - **Don't** set `h2` or body copy in uppercase — caps is reserved for display and label roles.
-- **Don't** add a gradient or a rounded "pill" badge; both are outside this world. Glass is allowed once, on the hero plate, and nowhere else.
+- **Don't** add a gradient, a glassmorphic panel, or a rounded "pill" badge; all three are outside this world.
 - **Don't** fabricate testimonials, star ratings, project counts, or years-in-business figures to fill a layout. See PRODUCT.md — that evidence does not exist yet.
-- **Don't** put a gradient scrim under type on footage. This world divides tone with hard edges; a soft fade is the category's default and belongs to a different system.
-- **Don't** autoplay video with sound, without a poster, or without a `prefers-reduced-motion` escape.

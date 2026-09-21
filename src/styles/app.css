@@ -26,6 +26,8 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* The tap flash is a browser surface too; tint it, don't leave the gray. */
+  -webkit-tap-highlight-color: rgb(61 56 148 / 0.15);
 }
 
 img,
@@ -601,6 +603,8 @@ textarea {
     display: grid;
     grid-template-columns: 1fr 1fr;
     border-top: var(--bar-weight) solid var(--steel-600);
+    /* Keep the targets clear of the home indicator on notched phones. */
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .contact-bar a {
@@ -627,7 +631,7 @@ textarea {
   }
 
   body {
-    padding-bottom: 56px;
+    padding-bottom: calc(56px + env(safe-area-inset-bottom));
   }
 }
 
@@ -792,124 +796,31 @@ a.figure:focus-visible {
   line-height: 1.15;
 }
 
-.project-carousel__sequence {
-  color: var(--text-secondary);
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
-}
-
-.project-carousel__controls,
-.project-carousel__arrows,
-.project-carousel__dots {
+/* Position bars. On a phone there is no keyboard and no hover, so the
+   carousel must show where it stands. Status only — swipe is the control,
+   the live region announces position, so these stay out of the tab order. */
+.project-carousel__bars {
   display: flex;
-  align-items: center;
-}
-
-.project-carousel__controls {
-  justify-content: space-between;
-  gap: var(--space-5);
-}
-
-.project-carousel__arrows {
+  justify-content: center;
   gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.project-carousel__arrow {
-  display: grid;
-  width: 52px;
-  min-height: 52px;
-  padding: 0;
-  place-items: center;
-  border: 1px solid var(--indigo-700);
-  background: transparent;
-  color: var(--indigo-700);
-  cursor: pointer;
+.project-carousel__bars li {
+  width: var(--bar-weight);
+  height: var(--bar-weight);
+  background: var(--steel-300);
   transition:
-    background-color var(--dur-base) var(--ease-standard),
-    color var(--dur-base) var(--ease-standard);
+    width var(--dur-base) var(--ease-standard),
+    background-color var(--dur-base) var(--ease-standard);
 }
 
-.project-carousel__arrow:hover {
+/* The active slide earns the mark's full bar: 6 thick, 19 long. */
+.project-carousel__bars li.is-active {
+  width: 19px;
   background: var(--indigo-700);
-  color: var(--bone-50);
-}
-
-.project-carousel__arrow:disabled {
-  border-color: var(--steel-200);
-  color: var(--steel-400);
-  cursor: not-allowed;
-}
-
-.project-carousel__arrow:disabled:hover {
-  background: transparent;
-  color: var(--steel-400);
-}
-
-.project-carousel__dots {
-  justify-content: end;
-  gap: var(--space-2);
-  flex: 1;
-}
-
-.project-carousel__dot {
-  width: clamp(22px, 4vw, 52px);
-  height: 44px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  position: relative;
-}
-
-.project-carousel__dot::before,
-.project-carousel__dot::after {
-  content: '';
-  position: absolute;
-  inset: 20px 0;
-}
-
-.project-carousel__dot::after {
-  background: var(--steel-200);
-  transition: background-color var(--dur-base) var(--ease-standard);
-}
-
-.project-carousel__dot::before {
-  z-index: 1;
-  background: var(--indigo-700);
-  transform: scaleX(0);
-  transform-origin: left;
-}
-
-.project-carousel__dot:hover::after {
-  background: var(--indigo-700);
-}
-
-.project-carousel__dot[aria-current='true']::before {
-  animation: carousel-progress 5200ms linear forwards;
-}
-
-.project-carousel.is-paused .project-carousel__dot[aria-current='true']::before {
-  animation: none;
-  transform: scaleX(1);
-}
-
-@keyframes carousel-progress {
-  from {
-    transform: scaleX(0);
-  }
-
-  to {
-    transform: scaleX(1);
-  }
-}
-
-.project-carousel__arrow:focus-visible,
-.project-carousel__dot:focus-visible {
-  outline: 3px solid var(--ink-900);
-  outline-offset: 3px;
 }
 
 /* The documented course-collapse breakpoint. Without it, grid-3 left a 2+1
@@ -1203,6 +1114,15 @@ a.figure:focus-visible {
   padding-bottom: var(--space-7);
 }
 
+/* Below two columns the 1.4fr brand track squeezes the lockup into breaking
+   mid-word — exactly the carelessness the site exists to disprove. */
+@media (max-width: 700px) {
+  .footer__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
 .footer__bottom {
   display: flex;
   flex-wrap: wrap;
@@ -1252,6 +1172,17 @@ a.figure:focus-visible {
   background: var(--surface-deep);
   color: var(--text-on-deep);
   padding-block: clamp(3.5rem, 10vw, 8rem);
+}
+
+/* Landscape phone: viewport height is the scarce axis, not width. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero {
+    padding-block: var(--space-7);
+  }
+
+  .hero__inner {
+    gap: var(--space-5);
+  }
 }
 
 .hero__inner {
@@ -1445,7 +1376,7 @@ a.figure:focus-visible {
 }
 
 .lightbox__close {
-  min-height: 44px;
+  min-height: 48px;
   padding: 0 var(--space-4);
   border: 1px solid var(--indigo-600);
   background: transparent;
@@ -1460,152 +1391,6 @@ a.figure:focus-visible {
   border-color: var(--brick-600);
 }
 
-/* --- FOUNDATIONS (the design system reference page) ----------------------- */
-
-.swatches {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: var(--space-6);
-}
-
-.ramp {
-  display: grid;
-  gap: var(--space-2);
-}
-
-.ramp__bar {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  height: 56px;
-  border: 1px solid var(--steel-200);
-}
-
-.ramp__step {
-  position: relative;
-}
-
-.ramp__step[data-brand='true']::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 6px;
-  width: 8px;
-  height: 8px;
-  margin-left: -4px;
-  background: var(--bone-50);
-}
-
-.ramp__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-4);
-  font-family: var(--font-label);
-  font-size: var(--text-2xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.spec {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-6);
-  padding-block: var(--space-6);
-  border-top: 1px solid var(--border);
-}
-
-@media (min-width: 900px) {
-  .spec {
-    grid-template-columns: 13rem minmax(0, 1fr);
-    gap: var(--space-7);
-  }
-}
-
-.spec__meta {
-  display: grid;
-  gap: var(--space-2);
-  align-content: start;
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.spec__meta strong {
-  color: var(--indigo-700);
-  font-weight: 600;
-}
-
-.spec__sample > * {
-  margin: 0;
-}
-
-.contrast-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--text-sm);
-}
-
-.contrast-table th,
-.contrast-table td {
-  padding: var(--space-3) var(--space-4);
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-}
-
-.contrast-table th {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--steel-600);
-}
-
-.contrast-table td:last-child,
-.contrast-table th:last-child {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.pass[data-grade='FAIL'] {
-  background: var(--brick-100);
-  color: var(--brick-800);
-}
-
-.pass {
-  display: inline-block;
-  padding: 2px var(--space-2);
-  background: var(--indigo-100);
-  color: var(--indigo-800);
-  font-family: var(--font-label);
-  font-size: var(--text-2xs);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.mark-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: var(--space-7);
-  padding: var(--space-6);
-  background: var(--surface-raised);
-  border: 1px solid var(--border);
-}
-
-.mark-row figcaption {
-  margin-top: var(--space-3);
-  font-family: var(--font-label);
-  font-size: var(--text-2xs);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
 .stack {
   display: grid;
   gap: var(--space-5);
@@ -1617,18 +1402,6 @@ a.figure:focus-visible {
 
 .stack--loose {
   gap: var(--space-7);
-}
-
-/* Display type shown as a specimen rather than as a second h1. */
-.specimen-display {
-  max-width: none;
-  color: var(--indigo-700);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--display-1);
-  line-height: 0.9;
-  letter-spacing: var(--tracking-display);
-  text-transform: uppercase;
 }
 
 /* The burger becomes an X while the drawer is open. */
@@ -1658,177 +1431,9 @@ a.figure:focus-visible {
   }
 }
 
-/* A specimen shown on the deep ground it was made for. */
-.mark-row__deep {
-  padding: var(--space-4);
-  background: var(--indigo-900);
-}
-
-.mark-row__deep figcaption {
-  color: var(--indigo-200);
-}
-
-/* --- THE FILM HERO -------------------------------------------------------- */
-/* Two zones divided by a hard edge: a solid indigo plate carrying the type, and
-   an open field showing the work. The edge is the datum rule, running
-   vertically here for the first time. No gradient scrim, no blur.
-
-   The split is not an arbitrary ratio. It is the bond's own 19u arm over its
-   33u field — the same proportion the mark is built from, so the hero is
-   divided the way the logo is divided.
-
-   Because the plate is opaque, the footage never renders behind it. That lets
-   the encode be a native-height square crop of the source rather than the whole
-   frame scaled down, which is where the resolution in the open field comes
-   from. */
-
-/* The film hero drops the display a step. At full size the line outruns the
-   plate and spills into the open field; smaller, the footage does more of the
-   work and the composition breathes. */
-.hero--film h1 {
-  font-size: var(--display-film);
-}
-
-.hero--film {
-  --plate-width: calc(19 / 33 * 100%); /* the bond's arm over its field */
-  --wash-field: 0.06; /* the grade already darkens; do not double up */
-  /* Tint chosen by sweep, not by eye: 44% reads best as glass but drops the
-     credential row to 4.77:1, too thin for the outdoor-daylight scene
-     PRODUCT.md describes. 58% still reads as glass at 6.26:1. */
-  --plate-tint: 22%;
-  /* 48px hid the footage entirely; 16px is where the formwork reads as
-     structure while the plate still reads as frosted glass. Below ~10px it
-     stops looking like glass and starts looking like soft-focus video, and the
-     contrast margin narrows with it. */
-  --plate-blur: 16px;
-  padding-block: clamp(4.5rem, 12vw, 9rem);
-}
-
-/* The footage runs the full width again: the glass plate has to have something
-   behind it to refract, and a plate over dead ground is not glass. */
-.hero__media {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background: var(--indigo-950);
-}
-
-.hero__frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-}
-
-/* The video fades up over the poster it was cut from, so there is no pop and
-   no frozen first frame if autoplay is refused. */
-.hero__frame--video {
-  opacity: 0;
-  transition: opacity var(--dur-slow) var(--ease-standard);
-}
-
-.hero__frame--video.is-playing {
-  opacity: 1;
-}
-
-/* The glass is transparent enough at 22% that the plate stopped reading as
-   indigo at all. This recolours the footage under the plate toward the brand
-   hue while keeping its luminance and detail, so the field is unmistakably
-   indigo without spending any transparency on it. Painted inside the media so
-   the plate's backdrop filter blurs the recoloured result, not the raw frame. */
-.hero--film .hero__media::before {
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: var(--plate-width);
-  z-index: 1;
-  background: var(--indigo-700);
-  mix-blend-mode: color;
-  pointer-events: none;
-}
-
-/* The open field: enough indigo to own the footage as brand, not enough to
-   hide the crew working in it. */
-.hero--film .hero__media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--indigo-900);
-  opacity: var(--wash-field);
-}
-
-/* The type plate: indigo glass. The footage stays readable through it as
-   movement and mass rather than detail, and the struck datum on its trailing
-   edge is what keeps it reading as a plate rather than a fade. */
-.hero__plate {
-  position: absolute;
-  inset: 0 auto 0 0;
-  z-index: -1;
-  width: var(--plate-width);
-  background: color-mix(in srgb, var(--indigo-800) var(--plate-tint), transparent);
-  backdrop-filter: blur(var(--plate-blur)) saturate(1.15);
-  -webkit-backdrop-filter: blur(var(--plate-blur)) saturate(1.15);
-  border-right: var(--bar-weight) solid var(--steel-500);
-}
-
-/* Without backdrop-filter there is no glass, only a weak tint — so fall back to
-   the opaque plate rather than shipping unreadable type. */
-@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
-  .hero__plate {
-    background: var(--indigo-800);
-  }
-}
-
-.hero--film .hero__tagline {
-  max-width: 34ch;
-}
-
-.hero--film .hero__creds {
-  max-width: 46ch;
-}
-
-@media (max-width: 1100px) {
-  .hero--film {
-    --plate-width: 64%;
-  }
-}
-
-/* Below the drawer breakpoint the split stops working: the plate covers the
-   field and the datum runs horizontally along its foot instead. */
-/* Below the drawer breakpoint a vertical split has no room: the glass covers
-   the whole field. A lighter blur, because this is a full-viewport backdrop
-   filter over playing video on the phones PRODUCT.md says this site is read on. */
-@media (max-width: 860px) {
-  .hero--film {
-    --plate-width: 100%;
-    /* Denser than desktop: the glass covers the whole field here and this is the
-       outdoor-daylight case. Lighter blur, because a full-viewport backdrop
-       filter over playing video is the expensive one. */
-    --plate-tint: 34%;
-    --plate-blur: 14px;
-  }
-
-  .hero__plate {
-    border-right: 0;
-  }
-}
-
-/* Reduced motion never mounts the video at all; this is belt and braces for a
-   preference that changes after load. */
 @media (prefers-reduced-motion: reduce) {
   .project-carousel__track {
     transition: none;
-  }
-
-  .project-carousel__dot[aria-current='true']::before {
-    animation: none;
-    transform: scaleX(1);
-  }
-
-  .hero__frame--video {
-    display: none;
   }
 }
 
@@ -1846,17 +1451,4 @@ a.figure:focus-visible {
     font-size: var(--text-lg);
   }
 
-  .project-carousel__controls {
-    align-items: start;
-  }
-
-  .project-carousel__dots {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(22px, 1fr));
-    max-width: 220px;
-  }
-
-  .project-carousel__dot {
-    width: 100%;
-  }
 }

@@ -134,9 +134,6 @@
   --text-4xl: 2.625rem;
 
   --display-1: clamp(3rem, 9vw, 6.5rem);
-  /* One step down, for a display line set over footage: at full size the line
-     outruns the type plate and spills into the open field. */
-  --display-film: clamp(2.75rem, 6.2vw, 5.25rem);
   --display-2: clamp(2.5rem, 6vw, 4rem);
   --headline: clamp(2rem, 4.5vw, 3rem);
 
@@ -185,5 +182,23 @@
 @media (max-width: 860px) {
   :root {
     --gutter: 1.25rem;
+  }
+}
+
+/* Small phones (320–360px): the 3rem floor breaks CONTRACTOR past the
+   container. Scale the display floor down before it can overflow. */
+@media (max-width: 360px) {
+  :root {
+    --display-1: 2.5rem;
+    --display-2: 2.25rem;
+  }
+}
+
+/* A phone held sideways has width to spare and no height: size the display
+   line off vh and tighten the hero so the quote button survives the fold. */
+@media (orientation: landscape) and (max-height: 500px) {
+  :root {
+    --display-1: clamp(2.25rem, 14vh, 4rem);
+    --display-2: clamp(2rem, 10vh, 3rem);
   }
 }

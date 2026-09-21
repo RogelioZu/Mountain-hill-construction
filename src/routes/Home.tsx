@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
+import { BondWatermark } from '../brand/BrickMark';
 import { FeaturedCarousel } from '../components/FeaturedCarousel';
-import { HeroVideo } from '../components/HeroVideo';
 import { Course } from '../components/Primitives';
 import { business, services } from '../data/site';
 
 export function Home() {
   return (
     <>
-      <section className="hero hero--film on-deep">
-        <HeroVideo />
-        <div className="hero__plate" aria-hidden="true" />
+      <section className="hero on-deep">
+        <BondWatermark />
         <div className="container hero__inner">
           {/* Client copy. Do not remove — see PRODUCT.md, Brand Commitments. */}
           <span className="label">Full Service</span>

@@ -3,16 +3,6 @@ import { featured } from '../data/site';
 
 const AUTOPLAY_DELAY = 5200;
 
-function ArrowIcon({ direction }: { direction: 'previous' | 'next' }) {
-  const points = direction === 'previous' ? '15 18 9 12 15 6' : '9 18 15 12 9 6';
-
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24">
-      <polyline points={points} fill="none" stroke="currentColor" strokeWidth="1.75" />
-    </svg>
-  );
-}
-
 export function FeaturedCarousel() {
   const [active, setActive] = useState(0);
   const [autoDirection, setAutoDirection] = useState<1 | -1>(1);
@@ -87,9 +77,10 @@ export function FeaturedCarousel() {
 
   return (
     <section
-      className={`project-carousel${isPaused ? ' is-paused' : ''}`}
+      className="project-carousel"
       aria-label="Featured projects"
       aria-roledescription="carousel"
+      tabIndex={0}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setHasFocusWithin(true)}
@@ -168,53 +159,17 @@ export function FeaturedCarousel() {
                   <span className="label">{project.category}</span>
                   <strong>{project.title}</strong>
                 </span>
-                <span className="project-carousel__sequence" aria-hidden="true">
-                  {String(index + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}
-                </span>
               </figcaption>
             </figure>
           ))}
         </div>
       </div>
 
-      <div className="project-carousel__controls">
-        <div className="project-carousel__arrows">
-          <button
-            type="button"
-            className="project-carousel__arrow"
-            aria-label="Previous project"
-            aria-controls="featured-projects-track"
-            onClick={showPrevious}
-            disabled={active === 0}
-          >
-            <ArrowIcon direction="previous" />
-          </button>
-          <button
-            type="button"
-            className="project-carousel__arrow"
-            aria-label="Next project"
-            aria-controls="featured-projects-track"
-            onClick={showNext}
-            disabled={active === featured.length - 1}
-          >
-            <ArrowIcon direction="next" />
-          </button>
-        </div>
-
-        <div className="project-carousel__dots" aria-label="Choose a featured project">
-          {featured.map((project, index) => (
-            <button
-              type="button"
-              key={project.src}
-              className="project-carousel__dot"
-              aria-label={`Show ${project.title}`}
-              aria-current={index === active ? 'true' : undefined}
-              aria-controls="featured-projects-track"
-              onClick={() => setActive(index)}
-            />
-          ))}
-        </div>
-      </div>
+      <ul className="project-carousel__bars" aria-hidden="true">
+        {featured.map((project, index) => (
+          <li key={project.src} className={index === active ? 'is-active' : ''} />
+        ))}
+      </ul>
 
       <p
         className="visually-hidden"
